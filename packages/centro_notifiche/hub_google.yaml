@@ -52,6 +52,8 @@ template:
             | default(['\0'], true) | join('|') %}
           {{ states | select('search', mp, ignorecase=True)
             | rejectattr('entity_id', 'search','sensor.notifier_.*')
+            | rejectattr('entity_id', 'search','power')
+            | rejectattr('entity_id', 'search','energy')
             | map(attribute='name') | list | unique | sort }}
         select_option:
           - event: notifier_global_variables
